@@ -1,22 +1,19 @@
-from flask import Flask, render_template, request, escape
-import numpy as np
+# save this as app.py
+from flask import Flask, escape, request, render_template
 import pickle
+import numpy as np
 
 app = Flask(__name__)
-
-
 model = pickle.load(open('model.pkl', 'rb'))
-
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template("index.html")
 
 
-
-@app.route('/predict', methods = ['GET', 'POST'])
+@app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    if request.method == 'POST':
+    if request.method ==  'POST':
         gender = request.form['gender']
         married = request.form['married']
         dependents = request.form['dependents']
@@ -28,10 +25,8 @@ def predict():
         CoapplicantIncome = float(request.form['CoapplicantIncome'])
         LoanAmount = float(request.form['LoanAmount'])
         Loan_Amount_Term = float(request.form['Loan_Amount_Term'])
-        
-        
 
-    # gender
+        # gender
         if (gender == "Male"):
             male=1
         else:
